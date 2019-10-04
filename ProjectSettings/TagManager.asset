@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 276138661
+    locked: 0
+  - name: Object
+    uniqueID: 754149099
+    locked: 0
+  - name: Food
+    uniqueID: 933992245
+    locked: 0
+  - name: UI
+    uniqueID: 3618780701
+    locked: 0
