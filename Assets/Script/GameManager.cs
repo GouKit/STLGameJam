@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
     LoadQuest loadQuest;
 
     int score;
+    int playCount = 0;
 
     bool isClear = false;
 
@@ -37,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         loadQuest.CreateQuest();
+        SubScore(0);
     }
 
     private void StartCook()
@@ -82,6 +84,18 @@ public class GameManager : Singleton<GameManager>
 
     public void AddScore(int score)
     {
+        switch (score)
+        {
+            case 0:
+                Clear(false);
+                break;
+            case 40:
+            case 70:
+            case 100:
+                Clear(true);
+                break;
+        }
+
         this.score += score;
         ui.textScore.UpdateText(this.score);
     }

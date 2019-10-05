@@ -8,18 +8,30 @@ public class Recipe
     public int id;
     public int count;
     public string foodName;
-    public Recipe(int id, int count, string name)
+    public CookRecipe cookType;
+
+    public Recipe(int id, int count, string name, CookRecipe cookType)
     {
         this.id = id;
         this.count = count;
         foodName = name;
+        this.cookType = cookType;
+    }
+
+    public bool CheckCorrect(int id, int count)
+    {
+        return this.id == id && this.count == count;
+    }
+
+    public bool CheckCorrect(CookRecipe cookType)
+    {
+        return this.cookType == cookType;
     }
 }
 
 public class Quest : MonoBehaviour
 {
-    [SerializeField]
-    private List<Recipe> QuestRecipe = new List<Recipe>();
+    public List<Recipe> QuestRecipe = new List<Recipe>();
 
     public List<string> Question;
 
@@ -76,6 +88,8 @@ public class Quest : MonoBehaviour
             AddQuestRecipe();
         }
 
+
+        QuestRecipe.Add(new Recipe(0, 0, "", (CookRecipe)Random.Range(0, 3)));
     }
 
     public void AddQuestRecipe() //퀘스트 설정
@@ -89,13 +103,14 @@ public class Quest : MonoBehaviour
 
         currentUseCount -= randUseCount;
 
-        QuestRecipe.Add(new Recipe(randFoodID, randUseCount, db.FindFoodWithID(randFoodID).name));
+        QuestRecipe.Add(new Recipe(randFoodID, randUseCount, db.FindFoodWithID(randFoodID).name, 0));
 
     }
 
 
     string ConvertKoreanFormat(string foodName)
     {
+        string result = "";
         switch (foodName)
         {
             case "레고캐빈":
@@ -110,6 +125,21 @@ public class Quest : MonoBehaviour
         }
     }
 
+    string ConvertKoreanFormat(CookRecipe cookType)
+    {
+        switch (cookType)
+        {
+            case CookRecipe.None:
+                return "생 꼬치로 주세요.";
+            case CookRecipe.Steam:
+                return "찐 꼬치로 주세요.";
+            case CookRecipe.Bake:
+                return "구운 꼬치로 주세요.";
+            default:
+                return "생 꼬치로 주세요.";
+        }
+    }
+
     public string ReturnQuest()
     {
         string text = "";
@@ -118,7 +148,12 @@ public class Quest : MonoBehaviour
         int count = QuestRecipe.Count;
         for (int i = 0; i < count; ++i)
         {
-            text += ConvertKoreanFormat(QuestRecipe[i].foodName);
+            if (i == count - 1)
+            {
+                text += ConvertKoreanFormat(QuestRecipe[i].cookType);
+            }
+            else
+                text += ConvertKoreanFormat(QuestRecipe[i].foodName);
 
             if (i < count - 1)
                 text += "\n";

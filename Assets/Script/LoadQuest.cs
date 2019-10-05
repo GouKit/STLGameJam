@@ -32,6 +32,7 @@ public class LoadQuest : MonoBehaviour
 
     public void CreateQuest()
     {
+        txt.text = "";
         orignText = quest.ReturnQuest();
         StartCoroutine("PrintCoroutine");
     }

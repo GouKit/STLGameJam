@@ -10,8 +10,7 @@ public class UIInGameManager : MonoBehaviour
     public UIScoreText textScore;
     public UINPCNameText textNpcName;
     public UICookContext textCookContext;
-
-
-
+    public GameObject cookWorker;
+    public GameObject cookResult;
 
 }

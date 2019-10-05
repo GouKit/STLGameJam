@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CookPointer : MonoBehaviour
 {
+    CookingManager cookingManager;
+
     Camera mainCamera;
 
     [SerializeField]
-    private bool isHold, isInput;
+    private bool isHold, isInput, isGive;
 
     [SerializeField]
     Transform target;
@@ -16,6 +18,11 @@ public class CookPointer : MonoBehaviour
     GameObject foodPrefab;
 
     Vector3 mouseScreenPosition, mouseWorldPosition;
+
+    private void Awake()
+    {
+        cookingManager = FindObjectOfType<CookingManager>();
+    }
 
     void Start()
     {
@@ -38,7 +45,14 @@ public class CookPointer : MonoBehaviour
 
             if (hit)
             {
-                if (hit.collider.gameObject.CompareTag("FoodSlot"))
+                if (isGive && hit.collider.gameObject.CompareTag("NPC"))
+                {
+                    //TODO :: NPC에게 줌
+                    SetInput(false);
+                    SetGive(false);
+                    cookingManager.GiveNpc();
+                }
+                else if (!isGive && hit.collider.gameObject.CompareTag("FoodSlot"))
                 {
                     FoodSlot slot = hit.collider.gameObject.GetComponent<FoodSlot>();
 
@@ -66,7 +80,7 @@ public class CookPointer : MonoBehaviour
             target.GetComponent<Rigidbody2D>().simulated = true;
             target.SetParent(null);
             RemoveTarget();
-            
+
         }
 
         if (isHold)
@@ -99,5 +113,11 @@ public class CookPointer : MonoBehaviour
     {
         this.isInput = isInput;
     }
+
+    public void SetGive(bool isGive)
+    {
+        this.isGive = isGive;
+    }
+
 
 }

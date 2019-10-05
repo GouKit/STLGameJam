@@ -26,7 +26,7 @@ public class Stick : MonoBehaviour
 
     public List<Food> foods;
     public List<FoodEffect> effects;
-    public CookRecipe recipe;
+    public CookRecipe cookType;
 
     public UnityAction finishPushEvent;
 
@@ -36,7 +36,7 @@ public class Stick : MonoBehaviour
         
     }
 
-    void SetName()
+    public void SetName()
     {
         StringBuilder resultName = new StringBuilder();
 
@@ -98,12 +98,12 @@ public class Stick : MonoBehaviour
     public void SetCook(bool isCooked, CookRecipe recipe)
     {
         this.isCooked = isCooked;
-        this.recipe = recipe;
+        this.cookType = recipe;
     }
 
     string GetRecipeContext()
     {
-        switch (recipe)
+        switch (cookType)
         {
             case CookRecipe.None:
                 return "생";
@@ -125,6 +125,7 @@ public class Stick : MonoBehaviour
             food.GetComponent<Rigidbody2D>().simulated = false;
 
             food.transform.SetParent(transform);
+            food.gameObject.layer = LayerMask.NameToLayer("Stick");
 
             Vector3 foodPosition = transform.position;
 
