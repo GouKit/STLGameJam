@@ -79,29 +79,39 @@ public class CookingManager : MonoBehaviour
         }
 
         int checkFoodPoint = 0;
-        int checkCookPoint = 0;
+        bool isCook = loadQuest.QuestRecipe[loadQuest.QuestRecipe.Count-1].CheckCorrect(QuestRecipe[QuestRecipe.Count-1].cookType);
+        bool isNot = false;
 
-        for (int i = 0; i < QuestRecipe.Count; ++i)
+        for (int i = 0; i < loadQuest.QuestRecipe.Count; ++i)
         {
-            for (int k = 0; k < loadQuest.QuestRecipe.Count; ++k)
+            for (int k = 0; k < QuestRecipe.Count; ++k)
             {
-                if (i == QuestRecipe.Count - 1 && loadQuest.QuestRecipe[k].CheckCorrect(QuestRecipe[i].cookType))
+                if(loadQuest.QuestRecipe[i].count == 0 && loadQuest.QuestRecipe[i].id == 0)//퀘스트 재료 개수가 0, 조리법이면
                 {
-                    ++checkCookPoint;
+                    if(loadQuest.QuestRecipe[i].id == QuestRecipe[k].id)//같은 id인 재료가 있음(없어야함)
+                        isNot = true;
                 }
-                else if (loadQuest.QuestRecipe[k].CheckCorrect(QuestRecipe[i].id, QuestRecipe[i].count))
+                else if(loadQuest.QuestRecipe[i].id == QuestRecipe[k].id && loadQuest.QuestRecipe[i].count == QuestRecipe[k].count)
                 {
+                    //같은 id인 재료 그리고 개수도 같음
                     ++checkFoodPoint;
                 }
             }
+            if(loadQuest.QuestRecipe[i].count == 0 && loadQuest.QuestRecipe[i].id == 0)
+            {
+                if(!isNot) //퀘스트 재료가 없음
+                    ++checkFoodPoint;
+                isNot = false;
+            }
         }
 
-        Debug.Log("cook: " + checkCookPoint + "/ food: " + checkFoodPoint);
+        Debug.Log("cnt: " + (loadQuest.QuestRecipe.Count - 1) + "/ food: " + checkFoodPoint);
+        Debug.Log(isCook);
 
         if (checkFoodPoint == loadQuest.QuestRecipe.Count - 1)
         {
             //원하는 음식
-            if (checkCookPoint > 0)
+            if (isCook)
             {
                 //원하는 조리
                 gm.AddScore(100);
@@ -114,7 +124,7 @@ public class CookingManager : MonoBehaviour
         else
         {
             //원하지 않는 음식
-            if (checkCookPoint > 0)
+            if (isCook)
             {
                 //원하는 조리
                 gm.AddScore(40);

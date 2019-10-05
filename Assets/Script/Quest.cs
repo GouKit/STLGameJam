@@ -18,11 +18,6 @@ public class Recipe
         this.cookType = cookType;
     }
 
-    public bool CheckCorrect(int id, int count)
-    {
-        return this.id == id && this.count == count? true : false;
-    }
-
     public bool CheckCorrect(CookRecipe cookType)
     {
         return this.cookType == cookType? true : false;
