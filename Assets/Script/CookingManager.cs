@@ -128,7 +128,8 @@ public class CookingManager : MonoBehaviour
         float timer = waitProgressTime;
 
         gm.ui.cookWorker.SetActive(true);
-
+        SoundManager.Instance.PlaySFX(SoundManager.SFX_SOUND.GRILL);
+        
         while (timer > 0)
         {
             timer -= Time.deltaTime;
