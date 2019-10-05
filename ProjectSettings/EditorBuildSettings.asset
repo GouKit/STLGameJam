@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/02_Ingame/QuestScene.unity
     guid: bab6115aa84c87a42b5f2554ddb02c24
+  - enabled: 1
+    path: Assets/Scenes/03_Ect/cooktest.unity
+    guid: aed8dacdc0e792a4a9517d2368124ed9
   m_configObjects: {}

@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStick: {fileID: 1730774728}
+  waitProgressTime: 3
   cookTypeObject: {fileID: 749729925}
   cookType: 0
 --- !u!4 &100894761
@@ -654,11 +655,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 715166676}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 675}
+  m_AnchoredPosition: {x: 0, y: 270}
   m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &334064508
@@ -682,7 +683,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 17a5072ac8c6cf04987a788daa3ee491, type: 3}
     m_FontSize: 76
     m_FontStyle: 0
     m_BestFit: 0
@@ -1460,7 +1461,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 567125119}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 100894760}
+        m_MethodName: GiveNpc
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1455203067}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &567125119
@@ -1534,7 +1557,7 @@ RectTransform:
   - {fileID: 1744848951}
   - {fileID: 615094642}
   m_Father: {fileID: 715166676}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2045,9 +2068,9 @@ RectTransform:
   - {fileID: 475770533}
   - {fileID: 1006432617}
   - {fileID: 1140892264}
+  - {fileID: 334064507}
   - {fileID: 572017881}
   - {fileID: 1455203068}
-  - {fileID: 334064507}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2074,7 +2097,7 @@ MonoBehaviour:
   textNpcName: {fileID: 334064510}
   textCookContext: {fileID: 460557502}
   cookWorker: {fileID: 572017880}
-  cookResult: {fileID: 1455203067}
+  cookResult: {fileID: 1455203069}
 --- !u!1 &717230814
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,7 +2171,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 17a5072ac8c6cf04987a788daa3ee491, type: 3}
-    m_FontSize: 57
+    m_FontSize: 47
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -3675,6 +3698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDontDestroy: 1
+  ui: {fileID: 0}
   maxLifeTime: 60
   lifeTime: 0
   maxLife: 2
@@ -3951,8 +3975,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1449263846}
-  - component: {fileID: 1449263845}
   - component: {fileID: 1449263847}
+  - component: {fileID: 1449263845}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -3960,54 +3984,43 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!212 &1449263845
-SpriteRenderer:
+--- !u!114 &1449263845
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449263844}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 924edb136ae819042b70fa9f4f71e5fb, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1.26, y: 0.78}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86763c9c01d264547bf39b8f784d010e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcList:
+  - npcName: "\uB808\uACE0\uCE90\uBE48"
+    npcObject: {fileID: 5925815703784469962, guid: c609a43df11a185439af76a80b9e62d7,
+      type: 3}
+  - npcName: "\uC5EC\uC7901"
+    npcObject: {fileID: 8989044235758179213, guid: c6ade9b4a0eb7d04f9672bfa900037f5,
+      type: 3}
+  - npcName: "\uB0A8\uC7901"
+    npcObject: {fileID: 6578806815960459696, guid: 3a54ade1c5d9d1e48a596de9310c5c5f,
+      type: 3}
+  - npcName: "\uCE58\uD0A8 \uBA38\uB9AC"
+    npcObject: {fileID: 500493305767212805, guid: 71fe9cc5486e45e4eb925530518fdb64,
+      type: 3}
+  - npcName: "\uB0A8\uC7902"
+    npcObject: {fileID: 6557639607361586475, guid: da0f369b944282f42a02694ce8e82ad2,
+      type: 3}
+  - npcName: "\uC5EC\uC7902"
+    npcObject: {fileID: 5734072113574845861, guid: b52e737632b7423428249117e7d08c52,
+      type: 3}
+  - npcName: "\uB0A8\uC790 \uB85C\uBD07"
+    npcObject: {fileID: 4111734210803148090, guid: acac109a819b867428b7569e3b043479,
+      type: 3}
+  - npcName: "\uC5EC\uC790 \uB85C\uBD07"
+    npcObject: {fileID: 7681206067957180860, guid: d6fcb3e535a38f042b997cbf2f9148db,
+      type: 3}
 --- !u!4 &1449263846
 Transform:
   m_ObjectHideFlags: 0
@@ -4015,13 +4028,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449263844}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.08, y: -0.27, z: -3.3457031}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.27, z: -3.3457031}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1449263847
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4035,7 +4048,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.17, y: 0}
+  m_Offset: {x: 0, y: 0.86195755}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4046,7 +4059,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.26, y: 0.78}
+  m_Size: {x: 3, y: 5.723915}
   m_EdgeRadius: 0
 --- !u!1 &1455203067
 GameObject:
@@ -4059,6 +4072,7 @@ GameObject:
   - component: {fileID: 1455203068}
   - component: {fileID: 1455203071}
   - component: {fileID: 1455203070}
+  - component: {fileID: 1455203069}
   m_Layer: 5
   m_Name: UICookResult
   m_TagString: Untagged
@@ -4079,13 +4093,26 @@ RectTransform:
   m_Children:
   - {fileID: 593691560}
   m_Father: {fileID: 715166676}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1455203069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455203067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e4494330b18834e99e9bc45fcb02aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textStickName: {fileID: 548327497}
 --- !u!114 &1455203070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4686,6 +4713,7 @@ MonoBehaviour:
   name: 
   context: 
   stickPoint: {fileID: 1587923318}
+  foodObjects: []
   foods: []
   effects: 
   cookType: 0

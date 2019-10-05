@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    UIInGameManager ui;
+    [HideInInspector]
+    public UIInGameManager ui;
 
     [SerializeField]
     float maxLifeTime;
@@ -12,6 +13,7 @@ public class GameManager : Singleton<GameManager>
 
     CookingManager cookingManager;
     LoadQuest loadQuest;
+    NPCBehaviour npcBehaviour;
 
     int score;
     int playCount = 0;
@@ -30,6 +32,7 @@ public class GameManager : Singleton<GameManager>
         cookingManager = FindObjectOfType<CookingManager>();
         loadQuest = FindObjectOfType<LoadQuest>();
         ui = FindObjectOfType<UIInGameManager>();
+        npcBehaviour = FindObjectOfType<NPCBehaviour>();
 
         cookingManager.SetGameManger(this);
         loadQuest.talkEnd += StartCook;
@@ -79,6 +82,7 @@ public class GameManager : Singleton<GameManager>
 
     public void NextNPC()
     {
+        npcBehaviour.ChangeNpc();
         loadQuest.CreateQuest();
     }
 

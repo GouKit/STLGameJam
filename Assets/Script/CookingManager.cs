@@ -13,6 +13,9 @@ public class CookingManager : MonoBehaviour
 
     Quest loadQuest;
 
+    [SerializeField]
+    float waitProgressTime = 3f;
+
     public Transform cookTypeObject;
     public CookRecipe cookType;
 
@@ -36,6 +39,11 @@ public class CookingManager : MonoBehaviour
     void FinishStickPush()
     {
         cookPointer.SetGive(true);
+    }
+
+    public void FinalCook()
+    {
+        StartCoroutine(WaitProcess());
     }
 
     public void GiveNpc()
@@ -110,6 +118,27 @@ public class CookingManager : MonoBehaviour
                 gm.AddScore(0);
             }
         }
+
+        currentStick.ClearStick();
+
+    }
+
+    IEnumerator WaitProcess()
+    {
+        float timer = waitProgressTime;
+
+        gm.ui.cookWorker.SetActive(true);
+
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+
+        gm.ui.cookWorker.SetActive(false);
+        gm.ui.cookResult.UpdateStickName(currentStick.GetName());
+        gm.ui.cookResult.gameObject.SetActive(true);
     }
 
     public void ChangeCookType(int dir, int view)

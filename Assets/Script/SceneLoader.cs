@@ -7,6 +7,6 @@ public class SceneLoader : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("QuestScene");
+        SceneManager.LoadScene("cooktest");
     }
 }
