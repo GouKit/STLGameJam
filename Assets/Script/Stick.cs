@@ -24,6 +24,7 @@ public class Stick : MonoBehaviour
     [SerializeField]
     Transform stickPoint;
 
+    public List<GameObject> foodObjects;
     public List<Food> foods;
     public List<FoodEffect> effects;
     public CookRecipe cookType;
@@ -33,7 +34,18 @@ public class Stick : MonoBehaviour
     private void Awake()
     {
         db = FindObjectOfType<FoodDB>();
-        
+
+    }
+
+    public void ClearStick()
+    {
+        foods.Clear();
+        effects.Clear();
+
+        for (int i = 0; i < foodObjects.Count; ++i)
+        {
+            Destroy(foodObjects[i]);
+        }
     }
 
     public void SetName()
@@ -125,6 +137,7 @@ public class Stick : MonoBehaviour
             food.GetComponent<Rigidbody2D>().simulated = false;
 
             food.transform.SetParent(transform);
+            foodObjects.Add(collision.gameObject);
             food.gameObject.layer = LayerMask.NameToLayer("Stick");
 
             Vector3 foodPosition = transform.position;

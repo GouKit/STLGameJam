@@ -11,6 +11,6 @@ public class UIInGameManager : MonoBehaviour
     public UINPCNameText textNpcName;
     public UICookContext textCookContext;
     public GameObject cookWorker;
-    public GameObject cookResult;
+    public UICookResult cookResult;
 
 }

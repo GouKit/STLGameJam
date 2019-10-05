@@ -1,23 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Npc : MonoBehaviour
+[System.Serializable]
+public class NPC
 {
+    public string npcName;
+
     [Header("NPC 이미지")]
-    public List<Sprite> image = new List<Sprite>();
-    private Image npc;
+    public GameObject npcObject;
 
-    void Start()
-    {
-        npc = GetComponent<Image>();
-        ChangeNpc();
-    }
 
-    public void ChangeNpc()
-    {
-        npc.sprite = image[Random.Range(0, image.Count)];
-    }
 
 }

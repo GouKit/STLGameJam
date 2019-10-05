@@ -52,7 +52,7 @@ public class CookPointer : MonoBehaviour
                     //TODO :: NPC에게 줌
                     SetInput(false);
                     SetGive(false);
-                    cookingManager.GiveNpc();
+                    cookingManager.FinalCook();
                 }
                 else if (!isGive && hit.collider.gameObject.CompareTag("FoodSlot"))
                 {
