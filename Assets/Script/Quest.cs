@@ -106,7 +106,6 @@ public class Quest : MonoBehaviour
 
     string ConvertKoreanFormat(string foodName)
     {
-        string result = "";
         switch (foodName)
         {
             case "레고캐빈":

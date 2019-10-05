@@ -7,6 +7,10 @@ public class SceneLoader : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("QuestScene");
+        SoundManager.Instance.PlaySFX(SoundManager.SFX_SOUND.BUTTON_CLICK);
+        
+        SoundManager.Instance.StopSound();
+        SoundManager.Instance.PlayIngameSound();
+        SceneManager.LoadScene("cooktest");
     }
 }
