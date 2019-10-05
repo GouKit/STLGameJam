@@ -47,14 +47,14 @@ public class CookingManager : MonoBehaviour
 
     public void FinalCook()
     {
+        currentStick.SetCook(true, cookType);
+        currentStick.SetName();
+
         StartCoroutine(WaitProcess());
     }
 
     public void GiveNpc()
     {
-        currentStick.SetCook(true, cookType);
-        currentStick.SetName();
-
         List<Recipe> QuestRecipe = new List<Recipe>();
         Recipe r = null;
         for (int i = 0; i < currentStick.foods.Count; ++i)
@@ -81,9 +81,8 @@ public class CookingManager : MonoBehaviour
         int checkFoodPoint = 0;
         bool isCook = loadQuest.QuestRecipe[loadQuest.QuestRecipe.Count-1].CheckCorrect(QuestRecipe[QuestRecipe.Count-1].cookType);
         bool isNot = false;
-        int n;
-
-        for (n = 0; n < loadQuest.QuestRecipe.Count; ++n)
+        
+        for (int n = 0; n < loadQuest.QuestRecipe.Count; ++n)
         {
             for (int k = 0; k < QuestRecipe.Count; ++k)
             {
@@ -92,16 +91,19 @@ public class CookingManager : MonoBehaviour
                     if(loadQuest.QuestRecipe[n].id == QuestRecipe[k].id)//같은 id인 재료가 있음(없어야함)
                         isNot = true;
                 }
-                else if(loadQuest.QuestRecipe[n].id == QuestRecipe[k].id && loadQuest.QuestRecipe[n].count == QuestRecipe[k].count)
+                else if(loadQuest.QuestRecipe[n].id == QuestRecipe[k].id && loadQuest.QuestRecipe[n].count <= QuestRecipe[k].count)
                 {
                     //같은 id인 재료 그리고 개수도 같음
                     ++checkFoodPoint;
                 }
             }
-            if(loadQuest.QuestRecipe[n].count == 0)
+            if (loadQuest.QuestRecipe[n].count == 0)
             {
-                if(!isNot) //퀘스트 재료가 없음
+                if (!isNot) //퀘스트 재료가 없음
+                {
                     ++checkFoodPoint;
+                    print("hi");
+                }
                 isNot = false;
             }
         }
