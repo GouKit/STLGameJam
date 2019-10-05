@@ -10,7 +10,7 @@ public class LoadQuest : MonoBehaviour
     private Text txt = null;
  
     [Header("Setting")]
-    public float delay = 0.05f;
+    public float delay = 0.1f;
  
     private string orignText = "";
     private int count = 0;
