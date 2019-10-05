@@ -8,6 +8,9 @@ public class CookingManager : MonoBehaviour
 
     CookPointer cookPointer;
 
+    [HideInInspector]
+    public FoodSlotManager foodSlotManager;
+
     [SerializeField]
     Stick currentStick;
 
@@ -23,6 +26,7 @@ public class CookingManager : MonoBehaviour
     {
         cookPointer = FindObjectOfType<CookPointer>();
         loadQuest = FindObjectOfType<Quest>();
+        foodSlotManager = FindObjectOfType<FoodSlotManager>();
     }
 
     public void StartGame()
@@ -120,13 +124,13 @@ public class CookingManager : MonoBehaviour
         }
 
         currentStick.ClearStick();
-
+        foodSlotManager.SetSlot();
     }
 
     IEnumerator WaitProcess()
     {
         float timer = waitProgressTime;
-
+        gm.StopTimer();
         gm.ui.cookWorker.SetActive(true);
 
         while (timer > 0)

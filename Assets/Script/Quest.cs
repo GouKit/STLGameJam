@@ -53,6 +53,7 @@ public class Quest : MonoBehaviour
 
     void InitRandFoodIDList()
     {
+        randFoodIDList.Clear();
         int count = db.GetFoodDBCount();
         for (int i = 0; i < count; ++i)
         {
@@ -106,7 +107,6 @@ public class Quest : MonoBehaviour
 
     string ConvertKoreanFormat(string foodName)
     {
-        string result = "";
         switch (foodName)
         {
             case "레고캐빈":

@@ -25,6 +25,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private int life = 0;
 
+    Coroutine timerCoroutine;
+
     protected override void Awake()
     {
         base.Awake();
@@ -47,7 +49,7 @@ public class GameManager : Singleton<GameManager>
     private void StartCook()
     {
         cookingManager.StartGame();
-        StartCoroutine(UpdateTime());
+        StartTimer();
     }
 
     IEnumerator UpdateTime()
@@ -82,8 +84,26 @@ public class GameManager : Singleton<GameManager>
 
     public void NextNPC()
     {
+
+        StartTimer();
+
         npcBehaviour.ChangeNpc();
         loadQuest.CreateQuest();
+        cookingManager.foodSlotManager.SetSlot();
+    }
+
+    public void StartTimer()
+    {
+        if (timerCoroutine != null)
+            StopTimer();
+
+        timerCoroutine = StartCoroutine(UpdateTime());
+    }
+
+
+    public void StopTimer()
+    {
+        StopCoroutine(timerCoroutine);
     }
 
     public void AddScore(int score)

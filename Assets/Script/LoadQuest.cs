@@ -19,6 +19,8 @@ public class LoadQuest : MonoBehaviour
 
     public UnityAction talkEnd;
 
+    Coroutine printCoroutine;
+
     private void Awake()
     {
         txt = GetComponent<Text>();
@@ -34,7 +36,11 @@ public class LoadQuest : MonoBehaviour
     {
         txt.text = "";
         orignText = quest.ReturnQuest();
-        StartCoroutine("PrintCoroutine");
+
+        if (printCoroutine != null)
+            StopCoroutine(printCoroutine);
+
+        printCoroutine = StartCoroutine("PrintCoroutine");
     }
 
     IEnumerator PrintCoroutine()

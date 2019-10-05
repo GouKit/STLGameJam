@@ -24,14 +24,14 @@ public class NPCBehaviour : MonoBehaviour
     public void ChangeNpc()
     {
         if (currentNPC != null)
-            Destroy(currentNPC);
+            Destroy(currentNPC.gameObject);
 
         int randIndex = Random.Range(0, npcList.Count);
 
-        GameObject g = Instantiate(npcList[randIndex].npcObject, transform);
-        g.transform.localPosition = Vector3.zero;
+        currentNPC = Instantiate(npcList[randIndex].npcObject, transform).transform;
+        currentNPC.localPosition = Vector3.zero;
 
-        ui.textNpcName.UpdateText(npcList[randIndex].npcName);
+//        ui.textNpcName.UpdateText(npcList[randIndex].npcName);
 
     }
 }
