@@ -20,17 +20,25 @@ public class Recipe
 
     public bool CheckCorrect(int id, int count)
     {
-        return this.id == id && this.count == count;
+        return this.id == id && this.count == count? true : false;
     }
 
     public bool CheckCorrect(CookRecipe cookType)
     {
-        return this.cookType == cookType;
+        return this.cookType == cookType? true : false;
     }
 }
 
 public class Quest : MonoBehaviour
 {
+    public enum TASTING
+    {
+        NONE,
+        BAD,
+        SOSO,
+        GOOD,
+        GREAT        
+    }
     public List<Recipe> QuestRecipe = new List<Recipe>();
 
     public List<string> Question;
@@ -48,7 +56,6 @@ public class Quest : MonoBehaviour
     void Awake()
     {
         db = FindObjectOfType<FoodDB>();
-        SetQuestRecipe();
     }
 
     void InitRandFoodIDList()
@@ -65,6 +72,7 @@ public class Quest : MonoBehaviour
     {
         InitRandFoodIDList();
 
+        QuestRecipe.Clear();
         currentUseCount = maxUseCount;
         float randPercent = Random.Range(0f, 1f) * 100f;
         int menuCount = 1;
@@ -155,12 +163,21 @@ public class Quest : MonoBehaviour
         return text;
     }
 
-    public string Tasting(bool isGood)
+    public string Tasting(TASTING isGood)
     {
-        if(isGood)
-            return "이집 맛있군, 훌륭해! 내가 원하던 맛이야!";
-        else
-            return "이게뭐야! 실망이군, 이런걸 먹으라고 주다니";
+        switch (isGood)
+        {
+        case TASTING.BAD:
+            return "이게뭐야! 실망이네요, 이런걸 먹으라고 주다니";
+        case TASTING.SOSO:
+            return "먹을만 하네요. 좀 더 노력해보세요.";
+        case TASTING.GOOD:
+            return "좋네요, 하나 더 주겠어요?";
+        case TASTING.GREAT:
+            return "이집 맛있네요, 좋아요! 내가 원하던 맛이에요!";
+        default:
+            return "엉망이네요! 이런 사람도 가게를 하다니!";
+        }
     }
 
 }

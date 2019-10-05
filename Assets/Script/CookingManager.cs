@@ -96,6 +96,8 @@ public class CookingManager : MonoBehaviour
             }
         }
 
+        Debug.Log("cook: " + checkCookPoint + "/ food: " + checkFoodPoint);
+
         if (checkFoodPoint == loadQuest.QuestRecipe.Count - 1)
         {
             //원하는 음식

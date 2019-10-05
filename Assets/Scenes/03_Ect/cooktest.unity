@@ -3901,7 +3901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDontDestroy: 0
   ui: {fileID: 0}
-  maxLifeTime: 5
+  maxLifeTime: 30
   lifeTime: 0
   maxLife: 2
   life: 0
@@ -4928,18 +4928,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 17a5072ac8c6cf04987a788daa3ee491, type: 3}
-    m_FontSize: 100
+    m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 100
+    m_MaxSize: 150
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC815\uC9C0 \uB418\uC5C8\uC5B4\uC694"
+  m_Text: "\uC5BC\uC74C"
 --- !u!222 &1675823808
 CanvasRenderer:
   m_ObjectHideFlags: 0

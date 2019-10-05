@@ -18,6 +18,7 @@ public class LoadQuest : MonoBehaviour
     Quest quest;
 
     public UnityAction talkEnd;
+    public UnityAction nextNpc;
 
     Coroutine printCoroutine;
 
@@ -34,6 +35,8 @@ public class LoadQuest : MonoBehaviour
 
     public void CreateQuest()
     {
+        quest.SetQuestRecipe();
+
         txt.text = "";
         orignText = quest.ReturnQuest();
 
@@ -41,6 +44,31 @@ public class LoadQuest : MonoBehaviour
             StopCoroutine(printCoroutine);
 
         printCoroutine = StartCoroutine("PrintCoroutine");
+    }
+
+    public void ShowTasting(Quest.TASTING isGood)
+    {
+        txt.text = "";
+        orignText = quest.Tasting(isGood);
+
+        if (printCoroutine != null)
+            StopCoroutine(printCoroutine);
+
+        printCoroutine = StartCoroutine("Print");
+    }
+
+    IEnumerator Print()
+    {
+        int len = 0;
+        while (len != orignText.Length)
+        {
+            txt.text += orignText[len++];
+            yield return new WaitForSeconds(delay);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        if (nextNpc != null)
+            nextNpc.Invoke();
     }
 
     IEnumerator PrintCoroutine()

@@ -38,6 +38,7 @@ public class GameManager : Singleton<GameManager>
 
         cookingManager.SetGameManger(this);
         loadQuest.talkEnd += StartCook;
+        loadQuest.nextNpc += NextNPC;
 
         life = maxLife;
     }
@@ -65,7 +66,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         if (!isClear)
-            Clear(false);
+            Clear(false); loadQuest.ShowTasting(Quest.TASTING.NONE);
     }
 
     public void Clear(bool isClear)
@@ -80,8 +81,6 @@ public class GameManager : Singleton<GameManager>
                 //TODO :: 게임 오버
             }
         }
-
-        NextNPC();
     }
 
     public void NextNPC()
@@ -113,13 +112,20 @@ public class GameManager : Singleton<GameManager>
         {
             case 0:
                 Clear(false);
+                loadQuest.ShowTasting(Quest.TASTING.BAD);
                 break;
             case 40:
+                loadQuest.ShowTasting(Quest.TASTING.SOSO);
+                break;
             case 70:
+                loadQuest.ShowTasting(Quest.TASTING.GOOD);
+                break;
             case 100:
-                Clear(true);
+                loadQuest.ShowTasting(Quest.TASTING.GREAT);
                 break;
         }
+
+        Clear(true);
 
         this.score += score;
         ui.textScore.UpdateText(this.score);
