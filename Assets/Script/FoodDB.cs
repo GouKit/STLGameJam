@@ -6,7 +6,10 @@ public class FoodDB : MonoBehaviour
 {
     [SerializeField]
     private List<Food> db;
-    
+
+    [SerializeField]
+    private List<string> countNaming;
+
     public Food FindFoodWithID(int id)
     {
         return db.Find(item => item.id == id);
@@ -17,6 +20,12 @@ public class FoodDB : MonoBehaviour
         return db.Find(item => item.name == name);
     }
 
+    public string FindCountName(int count)
+    {
+        if (count < 0 && countNaming.Count < count - 1)
+            return countNaming[0];
 
+        return countNaming[count - 1];
+    }
 
 }

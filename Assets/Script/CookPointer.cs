@@ -66,11 +66,8 @@ public class CookPointer : MonoBehaviour
             UpdateMousePosition();
             transform.position = mouseWorldPosition;
         }
-
     }
-
-
-
+    
     void UpdateMousePosition()
     {
         mouseScreenPosition = Input.mousePosition;

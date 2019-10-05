@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +8,17 @@ using UnityEngine.Events;
 [System.Serializable]
 public class Stick : MonoBehaviour
 {
+    FoodDB db;
+
     [SerializeField]
     private int maxFoodCount = 6;
 
     [SerializeField]
     float stickSize = 1f;
 
-    new public string name;
+    bool isCooked = false;
+
+    public new string name;
     public string context;
 
     [SerializeField]
@@ -23,26 +28,57 @@ public class Stick : MonoBehaviour
     public List<FoodEffect> effects;
     public CookRecipe recipe;
 
-    public UnityAction finishEvent;
+    public UnityAction finishPushEvent;
+
+    private void Awake()
+    {
+        db = FindObjectOfType<FoodDB>();
+        
+    }
 
     void SetName()
     {
         StringBuilder resultName = new StringBuilder();
-        List<int> filterFoods = new List<int>();
+
+        List<int> foodIDs = new List<int>();
+        Dictionary<int, int> foodCounts = new Dictionary<int, int>();
+
         for (int i = 0; i < foods.Count; ++i)
         {
-            if (!filterFoods.Contains(foods[i].id))
+            if (!foodCounts.ContainsKey(foods[i].id))
             {
-                filterFoods.Add(foods[i].id);
-
-                resultName.Append(foods[i].name);
-                resultName.Append(" ");
+                foodIDs.Add(foods[i].id);
+                foodCounts.Add(foods[i].id, 1);
+            }
+            else
+            {
+                foodCounts[foods[i].id] += 1;
             }
         }
-        resultName.Append(GetRecipeContext());
-        resultName.Append(" 꼬치");
+
+        for (int i = 0; i < foodCounts.Count; ++i)
+        {
+            resultName.Append(db.FindCountName(foodCounts[foodIDs[i]]));
+            //resultName.Append(" ");
+            resultName.Append(foods.Find(item => item.id == foodIDs[i]).name);
+            //resultName.Append(" ");
+        }
+
+
+        if (isCooked)
+        {
+            resultName.Append(GetRecipeContext());
+            //resultName.Append(" ");
+        }
+
+        resultName.Append("꼬치");
 
         name = resultName.ToString();
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 
     void AddFood(Food food)
@@ -51,16 +87,21 @@ public class Stick : MonoBehaviour
 
         if (foods.Count >= maxFoodCount)
         {
-            //TODO :: 꼬치 완성 >> 조리 선택
-            if (finishEvent != null)
-            {
-                finishEvent.Invoke();
-            }
-
             SetName();
 
-        }
+            //TODO :: 꼬치 완성 >> 조리 선택
+            if (finishPushEvent != null)
+            {
+                finishPushEvent.Invoke();
+            }
 
+        }
+    }
+
+    public void SetCook(bool isCooked, CookRecipe recipe)
+    {
+        this.isCooked = isCooked;
+        this.recipe = recipe;
     }
 
     string GetRecipeContext()

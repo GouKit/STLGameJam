@@ -66,8 +66,16 @@ public class FoodBehaviour : MonoBehaviour
             startMoveStick.Invoke();
         }
 
+        //y좌표를 고정시킵니다.
+        Vector3 setPosition = position;
+        setPosition.x = transform.position.x;
+
+        transform.position = setPosition;
+
+        //콜라이더 충돌 해제
         GetComponent<Collider2D>().enabled = false;
 
+        //해당 위치까지 이동
         while ((position - transform.position).sqrMagnitude > 0.001f)
         {
             transform.position = Vector3.LerpUnclamped(transform.position, position, Time.deltaTime * moveSpeed);

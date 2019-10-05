@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class CookingManager : MonoBehaviour
 {
-    
-    CookPointer cookPointer;
+    GameManager gm;
 
+    CookPointer cookPointer;
+    
     [SerializeField]
     Stick currentStick;
-
 
     void Awake()
     {
         cookPointer = FindObjectOfType<CookPointer>();
     }
 
-    private void Start()
+    public void StartGame()
     {
-        currentStick.finishEvent += FinishStickPush;
+        currentStick.finishPushEvent += FinishStickPush;
         StartStickPush();
     }
 
@@ -32,5 +32,8 @@ public class CookingManager : MonoBehaviour
         cookPointer.SetInput(false);
     }
 
+    public void SetGameManger(GameManager gm) {
+        this.gm = gm;
+    }
 
 }

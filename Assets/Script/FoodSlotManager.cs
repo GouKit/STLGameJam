@@ -14,9 +14,10 @@ public class FoodSlotManager : MonoBehaviour
 
     private void Start()
     {
+
         for (int i = 0; i < slots.Count; ++i)
         {
-            slots[i].SetFood(1);
+            slots[i].SetFood(i + 1);
         }
     }
 
