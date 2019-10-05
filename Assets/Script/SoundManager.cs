@@ -35,6 +35,14 @@ public class SoundManager : Singleton<SoundManager>
         BGMAudio.Play();
     }
 
+    public void PauseSound()
+    {
+        if(BGMAudio.isPlaying)
+            BGMAudio.Pause();
+        else
+            BGMAudio.UnPause();
+    }
+
     public void StopSound()
     {
         if(BGMAudio.isPlaying)

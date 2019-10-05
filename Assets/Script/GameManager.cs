@@ -38,6 +38,8 @@ public class GameManager : Singleton<GameManager>
 
         cookingManager.SetGameManger(this);
         loadQuest.talkEnd += StartCook;
+
+        life = maxLife;
     }
 
     private void Start()
@@ -84,8 +86,7 @@ public class GameManager : Singleton<GameManager>
 
     public void NextNPC()
     {
-
-        StartTimer();
+        ui.timer.UpdateTimer(1,1);
 
         npcBehaviour.ChangeNpc();
         loadQuest.CreateQuest();
