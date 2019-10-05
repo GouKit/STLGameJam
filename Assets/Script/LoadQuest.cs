@@ -36,6 +36,12 @@ public class LoadQuest : MonoBehaviour
         StartCoroutine("PrintCoroutine");
     }
 
+    public void CreateTasting()
+    {
+        orignText = quest.ReturnQuest();
+        StartCoroutine("PrintCoroutine");
+    }
+
     IEnumerator PrintCoroutine()
     {
         int len = 0;
