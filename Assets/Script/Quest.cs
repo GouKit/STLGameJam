@@ -48,10 +48,6 @@ public class Quest : MonoBehaviour
     void Awake()
     {
         db = FindObjectOfType<FoodDB>();
-    }
-
-    private void Start()
-    {
         SetQuestRecipe();
     }
 
@@ -143,8 +139,6 @@ public class Quest : MonoBehaviour
     public string ReturnQuest()
     {
         string text = "";
-
-
         int count = QuestRecipe.Count;
         for (int i = 0; i < count; ++i)
         {
@@ -159,6 +153,14 @@ public class Quest : MonoBehaviour
                 text += "\n";
         }
         return text;
+    }
+
+    public string Tasting(bool isGood)
+    {
+        if(isGood)
+            return "이집 맛있군, 훌륭해! 내가 원하던 맛이야!";
+        else
+            return "이게뭐야! 실망이군, 이런걸 먹으라고 주다니";
     }
 
 }
