@@ -32,13 +32,15 @@ public class LoadQuest : MonoBehaviour
 
     public void CreateQuest()
     {
+        txt.text = null;
         orignText = quest.ReturnQuest();
         StartCoroutine("PrintCoroutine");
     }
 
     public void CreateTasting()
     {
-        orignText = quest.ReturnQuest();
+        txt.text = null;
+        orignText = quest.Tasting(false);
         StartCoroutine("PrintCoroutine");
     }
 

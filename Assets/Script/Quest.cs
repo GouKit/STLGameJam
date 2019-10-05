@@ -36,10 +36,6 @@ public class Quest : MonoBehaviour
     void Awake()
     {
         db = FindObjectOfType<FoodDB>();
-    }
-
-    private void Start()
-    {
         SetQuestRecipe();
     }
 
@@ -113,8 +109,6 @@ public class Quest : MonoBehaviour
     public string ReturnQuest()
     {
         string text = "";
-
-
         int count = QuestRecipe.Count;
         for (int i = 0; i < count; ++i)
         {

@@ -12,7 +12,7 @@ public class Npc : MonoBehaviour
     void Start()
     {
         npc = GetComponent<Image>();
-        npc.sprite = image[Random.Range(0, image.Count)];
+        ChangeNpc();
     }
 
     public void ChangeNpc()
