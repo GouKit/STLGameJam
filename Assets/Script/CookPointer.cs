@@ -17,13 +17,11 @@ public class CookPointer : MonoBehaviour
 
     Vector3 mouseScreenPosition, mouseWorldPosition;
 
-    // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isInput)
@@ -48,7 +46,8 @@ public class CookPointer : MonoBehaviour
                     g.transform.localPosition = Vector3.zero;
 
                     SetTarget(g.transform);
-
+                    g.GetComponent<Collider2D>().enabled = false;
+                    target.GetComponent<Rigidbody2D>().simulated = false;
                     FoodBehaviour food = g.GetComponent<FoodBehaviour>();
                     food.SetFood(slot.FoodID);
                     food.startMoveStick += RemoveTarget;
@@ -59,6 +58,15 @@ public class CookPointer : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             isHold = false;
+
+            if (target == null)
+                return;
+
+            target.GetComponent<Collider2D>().enabled = true;
+            target.GetComponent<Rigidbody2D>().simulated = true;
+            target.SetParent(null);
+            RemoveTarget();
+            
         }
 
         if (isHold)
@@ -67,7 +75,7 @@ public class CookPointer : MonoBehaviour
             transform.position = mouseWorldPosition;
         }
     }
-    
+
     void UpdateMousePosition()
     {
         mouseScreenPosition = Input.mousePosition;

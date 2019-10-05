@@ -59,16 +59,13 @@ public class Stick : MonoBehaviour
         for (int i = 0; i < foodCounts.Count; ++i)
         {
             resultName.Append(db.FindCountName(foodCounts[foodIDs[i]]));
-            //resultName.Append(" ");
             resultName.Append(foods.Find(item => item.id == foodIDs[i]).name);
-            //resultName.Append(" ");
         }
 
 
         if (isCooked)
         {
             resultName.Append(GetRecipeContext());
-            //resultName.Append(" ");
         }
 
         resultName.Append("꼬치");
@@ -124,6 +121,8 @@ public class Stick : MonoBehaviour
         if (collision.CompareTag("Food"))
         {
             FoodBehaviour food = collision.GetComponent<FoodBehaviour>();
+
+            food.GetComponent<Rigidbody2D>().simulated = false;
 
             food.transform.SetParent(transform);
 

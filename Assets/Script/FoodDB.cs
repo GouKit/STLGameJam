@@ -28,4 +28,9 @@ public class FoodDB : MonoBehaviour
         return countNaming[count - 1];
     }
 
+    public int GetFoodDBCount() {
+        return db.Count;
+    }
+
+   
 }

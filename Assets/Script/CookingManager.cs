@@ -11,9 +11,12 @@ public class CookingManager : MonoBehaviour
     [SerializeField]
     Stick currentStick;
 
+    LoadQuest loadQuest;
+
     void Awake()
     {
         cookPointer = FindObjectOfType<CookPointer>();
+        loadQuest = FindObjectOfType<LoadQuest>();
     }
 
     public void StartGame()

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Menu
+[System.Serializable]
+public class Recipe
 {
     public int id;
     public int count;
     public string foodName;
-    public Menu(int id, int count, string name)
+    public Recipe(int id, int count, string name)
     {
         this.id = id;
         this.count = count;
@@ -17,91 +18,85 @@ public class Menu
 
 public class Quest : MonoBehaviour
 {
-    public List<Menu> QuestMenu = new List<Menu>();
-    private List<string> Question = new List<string>();
+    [SerializeField]
+    private List<Recipe> QuestRecipe = new List<Recipe>();
+
+    public List<string> Question;
+
     private FoodDB db;
 
-    [Header("추가조건 확률")]
-    public int second = 2, third = 3;
-    [Header("재료 최대 최솟값")]
-    public int min = 1, max = 16;
-    private int temp;
-    public int UseCount
-    { get {return useCount;} set{useCount = value; if(useCount <= 0){useCount = 0;}} }
-    private int useCount = 6;
-    private int usingCount = 0;
-    private int questNum = 0, before = 0;
-    private string kor = "";
-    
+    [Header("추가조건 확률 (%)")]
+    public float[] menuCountPercent;
+
+    const int maxUseCount = 6;
+    int currentUseCount = 0;
+
+    List<int> randFoodIDList = new List<int>();
+
     void Awake()
     {
         db = FindObjectOfType<FoodDB>();
-        AddQuest();
-        AddQuestion();
     }
 
-    void AddQuestion()
+    private void Start()
     {
-        Question.Add("둘이 먹다 하나 죽게 만들어 주세요.");
-        Question.Add("적당히 주세요.");
-        Question.Add("최선을 다해 주세요.");
-        Question.Add("살려 주세요.");
-        Question.Add("힘내 주세요.");
-        Question.Add("죽여 주세요."); 
+        SetQuestRecipe();
     }
 
-    public void AddQuest() //퀘스트 설정
+    void InitRandFoodIDList()
     {
-        before = QuestMenu.Count;
-
-        temp = RandomNum(min, max);
-        usingCount = RandomNum(0, UseCount);
-        UseCount -= usingCount;
-        QuestMenu.Add(new Menu(db.FindFoodWithID(temp).id, usingCount, db.FindFoodWithID(temp).name));
-
-        if(RandomNum(0,10)%second == 0)
+        int count = db.GetFoodDBCount();
+        for (int i = 0; i < count; ++i)
         {
-            temp = RandomNum(min, max);
-            usingCount = RandomNum(0, UseCount);
-            UseCount -= usingCount;
-            QuestMenu.Add(new Menu(db.FindFoodWithID(temp).id, usingCount, db.FindFoodWithID(temp).name));
-            
-            if(RandomNum(0,10)%third == 0)
-            {
-                temp = RandomNum(min, max);
-                usingCount = RandomNum(0, UseCount);
-                UseCount -= usingCount;
-                QuestMenu.Add(new Menu(db.FindFoodWithID(temp).id, usingCount, db.FindFoodWithID(temp).name));
-            }
-        }
-
-        questNum = QuestMenu.Count - before;
-        OverlapCheck();
-    }
-
-    void OverlapCheck()
-    {
-        for(int i = 0; i < questNum; ++i)
-        {
-            int tp = QuestMenu[before+i].id;
-            for(int j = i+1; j < questNum; ++j)
-            {
-                if(tp == QuestMenu[before+j].id)
-                {
-                    QuestMenu[before+j].foodName = "";
-                }
-            }
+            randFoodIDList.Add(i + 1);
         }
     }
 
-    int RandomNum(int min, int max)
+    public void SetQuestRecipe()
     {
-        return Random.Range(min, max);
+        InitRandFoodIDList();
+
+        currentUseCount = maxUseCount;
+        float randPercent = Random.Range(0f, 1f) * 100f;
+        int menuCount = 1;
+
+        if (randPercent > menuCountPercent[0] + (100f - (menuCountPercent[1] + menuCountPercent[0])))
+        {
+            //3개
+            menuCount = 3;
+        }
+        else if (randPercent > 100f - (menuCountPercent[1] + menuCountPercent[0]))
+        {
+            //2개
+            menuCount = 2;
+        }
+
+        for (int i = 0; i < menuCount; ++i)
+        {
+            AddQuestRecipe();
+        }
+
     }
 
-    string Korean(int index)
+    public void AddQuestRecipe() //퀘스트 설정
     {
-        switch (QuestMenu[index].foodName)
+        int randFoodIndex = Random.Range(0, randFoodIDList.Count);
+        int randFoodID = randFoodIDList[randFoodIndex];
+
+        randFoodIDList.RemoveAt(randFoodIndex);
+
+        int randUseCount = Random.Range(0, currentUseCount + 1);
+
+        currentUseCount -= randUseCount;
+
+        QuestRecipe.Add(new Recipe(randFoodID, randUseCount, db.FindFoodWithID(randFoodID).name));
+
+    }
+
+
+    string ConvertKoreanFormat(string foodName)
+    {
+        switch (foodName)
         {
             case "레고캐빈":
             case "버섯":
@@ -109,22 +104,26 @@ public class Quest : MonoBehaviour
             case "날치알":
             case "얼음":
             case "태양":
-                return kor = "을 " + Question[RandomNum(0, Question.Count-1)];
-            case "":
-                return "";
+                return foodName + "을 " + Question[Random.Range(0, Question.Count)];
             default:
-                return kor = "를 " + Question[RandomNum(0, Question.Count-1)];
+                return foodName + "를 " + Question[Random.Range(0, Question.Count)];
         }
     }
 
     public string ReturnQuest()
     {
         string text = "";
-        for(int i = 0; i < questNum; ++i)
+
+
+        int count = QuestRecipe.Count;
+        for (int i = 0; i < count; ++i)
         {
-            text += QuestMenu[before+i].foodName + Korean(before+i);
+            text += ConvertKoreanFormat(QuestRecipe[i].foodName);
+
+            if (i < count - 1)
+                text += "\n";
         }
         return text;
     }
-    
+
 }

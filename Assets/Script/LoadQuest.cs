@@ -2,41 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class LoadQuest : MonoBehaviour
 {
 
     [Header("Reference")]
     private Text txt = null;
- 
+
     [Header("Setting")]
     public float delay = 0.1f;
- 
+
     private string orignText = "";
-    private int count = 0;
- 
-    private void Start()
+
+    Quest quest;
+
+    public UnityAction talkEnd;
+
+    private void Awake()
     {
         txt = GetComponent<Text>();
-        Quest quest = GameObject.Find("Quest").GetComponent<Quest>();
-        orignText = quest.ReturnQuest();
-        StartCoroutine("PrintCoroutine");
+        quest = FindObjectOfType<Quest>();
     }
 
     private void OnDisable()
     {
         StopCoroutine("PrintCoroutine");
     }
- 
+
+    public void CreateQuest()
+    {
+        orignText = quest.ReturnQuest();
+        StartCoroutine("PrintCoroutine");
+    }
+
     IEnumerator PrintCoroutine()
     {
-        yield return new WaitForSeconds(delay);
- 
-        if (orignText.Length - count > 0)
+        int len = 0;
+        while (len != orignText.Length)
         {
-            txt.text += orignText[count++];
-            StartCoroutine("PrintCoroutine");
+            txt.text += orignText[len++];
+            yield return new WaitForSeconds(delay);
         }
+        if (talkEnd != null)
+            talkEnd.Invoke();
+
     }
 
 }
