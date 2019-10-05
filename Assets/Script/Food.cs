@@ -2,39 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Food : MonoBehaviour
+[System.Serializable]
+public class Food : Item
 {
-    private Collider2D coll;
-    private Vector3 origin;
+    public List<FoodTaste> tastes;
 
-    void Start()
+    public Food(Food f)
     {
-        coll = GetComponent<Collider2D>();
-        origin = transform.position;
+        this.id = f.id;
+        this.name = f.name;
+        this.context = f.context;
+        this.spriteName = f.spriteName;
+
+        this.tastes = f.tastes;        
     }
 
-    void OnMouseDown()
-    {
-        transform.localScale *= 1.5f;
-        coll.enabled = false;    
-    }
+}
 
-    void OnMouseDrag()
-    {
-        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        pos.z = 0;
-        transform.position = pos;
-    }
 
-    void OnMouseUp()
-    {
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.localScale = new Vector3(1,1,1);
-        transform.position = origin;
+[System.Serializable]
+public enum FoodTaste
+{
 
-        GameObject temp = Physics2D.OverlapBox(new Vector2(pos.x, pos.y), new Vector2(1,1), 0).gameObject;
-        Debug.Log(temp.name);
+    Sweetness
+        , Salty
+        , Spicy
+        , Acidity
+        , Bitter
+        , Umami
+}
 
-        coll.enabled = true;
-    }    
+[System.Serializable]
+public enum FoodEffect
+{
+    Hot,
+    Ice
 }
