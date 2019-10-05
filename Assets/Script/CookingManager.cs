@@ -81,23 +81,24 @@ public class CookingManager : MonoBehaviour
         int checkFoodPoint = 0;
         bool isCook = loadQuest.QuestRecipe[loadQuest.QuestRecipe.Count-1].CheckCorrect(QuestRecipe[QuestRecipe.Count-1].cookType);
         bool isNot = false;
+        int n;
 
-        for (int i = 0; i < loadQuest.QuestRecipe.Count; ++i)
+        for (n = 0; n < loadQuest.QuestRecipe.Count; ++n)
         {
             for (int k = 0; k < QuestRecipe.Count; ++k)
             {
-                if(loadQuest.QuestRecipe[i].count == 0 && loadQuest.QuestRecipe[i].id == 0)//퀘스트 재료 개수가 0, 조리법이면
+                if(loadQuest.QuestRecipe[n].count == 0)//퀘스트 재료 개수가 0
                 {
-                    if(loadQuest.QuestRecipe[i].id == QuestRecipe[k].id)//같은 id인 재료가 있음(없어야함)
+                    if(loadQuest.QuestRecipe[n].id == QuestRecipe[k].id)//같은 id인 재료가 있음(없어야함)
                         isNot = true;
                 }
-                else if(loadQuest.QuestRecipe[i].id == QuestRecipe[k].id && loadQuest.QuestRecipe[i].count == QuestRecipe[k].count)
+                else if(loadQuest.QuestRecipe[n].id == QuestRecipe[k].id && loadQuest.QuestRecipe[n].count == QuestRecipe[k].count)
                 {
                     //같은 id인 재료 그리고 개수도 같음
                     ++checkFoodPoint;
                 }
             }
-            if(loadQuest.QuestRecipe[i].count == 0 && loadQuest.QuestRecipe[i].id == 0)
+            if(loadQuest.QuestRecipe[n].count == 0)
             {
                 if(!isNot) //퀘스트 재료가 없음
                     ++checkFoodPoint;
