@@ -38,8 +38,6 @@ public class CookPointer : MonoBehaviour
         {
             isHold = true;
 
-            SoundManager.Instance.PlaySFX(SoundManager.SFX_SOUND.CATCH);
-
             UpdateMousePosition();
             RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mouseScreenPosition)
                 , Vector3.forward
