@@ -15,9 +15,7 @@ public class GameManager : Singleton<GameManager>
     LoadQuest loadQuest;
     NPCBehaviour npcBehaviour;
 
-    int score;
-    int playCount = 0;
-
+    public int score;
     bool isClear = false;
 
     [SerializeField]
