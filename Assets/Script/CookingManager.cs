@@ -12,7 +12,7 @@ public class CookingManager : MonoBehaviour
     public FoodSlotManager foodSlotManager;
 
     [SerializeField]
-    Stick currentStick;
+    public Stick currentStick;
 
     Quest loadQuest;
 
@@ -21,6 +21,9 @@ public class CookingManager : MonoBehaviour
 
     public Transform cookTypeObject;
     public CookRecipe cookType;
+
+    [SerializeField]
+    List<Recipe> QuestRecipe = new List<Recipe>();
 
     void Awake()
     {
@@ -55,7 +58,6 @@ public class CookingManager : MonoBehaviour
 
     public void GiveNpc()
     {
-        List<Recipe> QuestRecipe = new List<Recipe>();
         Recipe r = null;
         for (int i = 0; i < currentStick.foods.Count; ++i)
         {

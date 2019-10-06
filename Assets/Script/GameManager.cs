@@ -66,7 +66,9 @@ public class GameManager : Singleton<GameManager>
         }
 
         if (!isClear)
-            Clear(false); loadQuest.ShowTasting(Quest.TASTING.NONE);
+            Clear(false);
+
+        loadQuest.ShowTasting(Quest.TASTING.NONE);
     }
 
     public void Clear(bool isClear)
@@ -86,7 +88,7 @@ public class GameManager : Singleton<GameManager>
     public void NextNPC()
     {
         ui.timer.UpdateTimer(1,1);
-
+        cookingManager.currentStick.ClearStick();
         npcBehaviour.ChangeNpc();
         loadQuest.CreateQuest();
         cookingManager.foodSlotManager.SetSlot();

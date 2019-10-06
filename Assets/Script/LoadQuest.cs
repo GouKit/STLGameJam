@@ -66,7 +66,8 @@ public class LoadQuest : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
+
         if (nextNpc != null)
             nextNpc.Invoke();
     }
