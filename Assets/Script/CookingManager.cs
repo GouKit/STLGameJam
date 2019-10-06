@@ -83,7 +83,6 @@ public class CookingManager : MonoBehaviour
         int checkFoodPoint = 0;
         bool isCook = loadQuest.QuestRecipe[loadQuest.QuestRecipe.Count-1].CheckCorrect(QuestRecipe[QuestRecipe.Count-1].cookType);
         bool isNot = false;
-        
         for (int n = 0; n < loadQuest.QuestRecipe.Count; ++n)
         {
             for (int k = 0; k < QuestRecipe.Count; ++k)
@@ -101,10 +100,10 @@ public class CookingManager : MonoBehaviour
             }
             if (loadQuest.QuestRecipe[n].count == 0)
             {
-                if (!isNot) //퀘스트 재료가 없음
+                if(!isNot) //퀘스트 재료가 없음
                 {
                     ++checkFoodPoint;
-                    print("hi");
+                    Debug.Log("check");
                 }
                 isNot = false;
             }
