@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
 
     public int score;
     bool isClear = false;
+    bool isPlay = false;
 
     [SerializeField]
     private int maxLife = 2;
@@ -43,6 +44,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        isPlay = true;
         loadQuest.CreateQuest();
         SubScore(0);
     }
@@ -78,13 +80,19 @@ public class GameManager : Singleton<GameManager>
 
             if (life < 1)
             {
+                isPlay = false;
                 //TODO :: 게임 오버
+                ui.scoreManager.gameObject.SetActive(true);
+                ui.scoreManager.ShowScore();
             }
         }
     }
 
     public void NextNPC()
     {
+        if (!isPlay)
+            return;
+
         ui.timer.UpdateTimer(1,1);
         cookingManager.currentStick.ClearStick();
         npcBehaviour.ChangeNpc();
@@ -108,6 +116,10 @@ public class GameManager : Singleton<GameManager>
 
     public void AddScore(int score)
     {
+
+        this.score += score;
+        ui.textScore.UpdateText(this.score);
+
         switch (score)
         {
             case 0:
@@ -126,9 +138,6 @@ public class GameManager : Singleton<GameManager>
         }
 
         Clear(true);
-
-        this.score += score;
-        ui.textScore.UpdateText(this.score);
     }
 
     public void SubScore(int score)

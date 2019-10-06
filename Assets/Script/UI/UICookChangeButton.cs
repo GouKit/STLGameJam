@@ -19,6 +19,8 @@ public class UICookChangeButton : MonoBehaviour
 
     private void Awake()
     {
+        currentViewIndex = 0;
+
         ui = FindObjectOfType<UIInGameManager>();
         cookingManager = FindObjectOfType<CookingManager>();
 

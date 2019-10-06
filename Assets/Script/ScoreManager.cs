@@ -9,23 +9,18 @@ public class ScoreManager : MonoBehaviour
     public Text highScore, currentScore;
     int maxScore;
 
-    void Start()
-    {
-        if(PlayerPrefs.HasKey("HighScore"))
-        {
-            maxScore = PlayerPrefs.GetInt("HighScore");
-        }
-    }
-
     public void ShowScore()
     {
-        if(maxScore <= GameManager.Instance.score)
+        maxScore = PlayerPrefs.GetInt("HighScore", 0);
+
+        if (maxScore < GameManager.Instance.score)
         {
             maxScore = GameManager.Instance.score;
             PlayerPrefs.SetInt("HighScore", maxScore);
         }
-        highScore.text = "" + maxScore;
-        currentScore.text = "" + GameManager.Instance.score;
+
+        highScore.text = maxScore.ToString();
+        currentScore.text = GameManager.Instance.score.ToString();
     }
 
     public void GotoMain()

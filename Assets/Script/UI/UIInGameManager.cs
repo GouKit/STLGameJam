@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIInGameManager : MonoBehaviour
 {
-    
+
     public UITimer timer;
     public UILifeHeart lifeHeart;
     public UIScoreText textScore;
@@ -12,5 +12,6 @@ public class UIInGameManager : MonoBehaviour
     public UICookContext textCookContext;
     public GameObject cookWorker;
     public UICookResult cookResult;
+    public ScoreManager scoreManager;
 
 }
